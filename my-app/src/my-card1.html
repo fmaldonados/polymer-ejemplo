@@ -1,0 +1,75 @@
+<!-- Load the Polymer.Element base class -->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="my-card1">
+    <!-- Defines the element's style and local DOM -->
+    <template>
+        <style>
+             :host {
+                display: block;
+
+                padding: 16px;
+            }
+
+            .outer {
+                border: 2px solid brown;
+                border-radius: 1em;
+                background: red;
+                font-size: 20pt;
+                width: 12em;
+                height: 7em;
+                text-align: center;
+            }
+
+            .boilerplate {
+                color: white;
+                font-family: sans-serif;
+                padding: 0.5em;
+            }
+
+            .name {
+                color: black;
+                background: white;
+                font-family: "Marker Felt", cursive;
+                font-size: 45pt;
+                padding-top: 0.2em;
+            }
+        </style>
+        <div class="outer">
+            <div class="boilerplate">
+                Hi! My name is
+            </div>
+            <div class="name">
+                <content>
+                    Félix
+                </content>
+            </div>
+        </div>
+        <p>
+            <label for="newName">New name:</label>
+            <input id= "h" name="newName" value="Shellie">
+            <button id="mybutton">Update</button>
+        </p>
+
+    </template>
+    <script>
+        // Your new element extends the Polymer.Element base class
+        class MyCard1 extends Polymer.Element {
+            static get is() { return 'my-card1'; }
+
+
+            ready() {
+                super.ready();
+                this.$.mybutton.addEventListener('click', e => { this._handleClick(e) });
+            }
+
+            _handleClick(e) {
+                console.info(this.$.h.value);
+            }
+
+        }
+
+        //Now, register your new custom element so the browser can use it
+        customElements.define(MyCard1.is, MyCard1);
+    </script>
+</dom-module>
