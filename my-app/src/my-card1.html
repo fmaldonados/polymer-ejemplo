@@ -1,5 +1,7 @@
 <!-- Load the Polymer.Element base class -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-input-master/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <dom-module id="my-card1">
     <!-- Defines the element's style and local DOM -->
@@ -34,21 +36,43 @@
                 font-size: 45pt;
                 padding-top: 0.2em;
             }
+
+            paper-input {
+                width: 20%;
+            }
+
+            paper-button {
+                font-family: 'Roboto', 'Noto', sans-serif;
+                font-weight: normal;
+                font-size: 14px;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            paper-button.indigo {
+                background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: var(--paper-pink-a200) !important;
+                    color: white !important;
+                }
+                ;
+            }
+
+            paper-button.indigo:hover {
+                background-color: var(--paper-indigo-400);
+            }
         </style>
         <div class="outer">
             <div class="boilerplate">
                 Hi! My name is
             </div>
-            <div class="name">
-                <content>
-                    Félix
-                </content>
+            <div class="name" id="nameTag">
+                Félix 
             </div>
         </div>
         <p>
-            <label for="newName">New name:</label>
-            <input id= "h" name="newName" value="Shellie">
-            <button id="mybutton">Update</button>
+            <paper-input id="input" label="text input"></paper-input>
+            <paper-button on-click="updateName" raised class="indigo">update</paper-button>
         </p>
 
     </template>
@@ -57,16 +81,11 @@
         class MyCard1 extends Polymer.Element {
             static get is() { return 'my-card1'; }
 
-
-            ready() {
-                super.ready();
-                this.$.mybutton.addEventListener('click', e => { this._handleClick(e) });
+            updateName() {
+                console.log(this.$.input.value);
+                this.$.nameTag.textContent = this.$.input.value;
+                this.$.input.value="";
             }
-
-            _handleClick(e) {
-                console.info(this.$.h.value);
-            }
-
         }
 
         //Now, register your new custom element so the browser can use it
